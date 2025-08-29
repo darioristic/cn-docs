@@ -1,13 +1,7 @@
 {
   "index": "Introduction",
-  "get-started": {
-    "title": "Get Started",
-    "type": "page"
-  },
-  "sales": {
-    "title": "Sales",
-    "type": "page"
-  },
+  "get-started": "Get Started",
+  "sales": "Sales",
   "about": {
     "title": "About",
     "type": "page"
