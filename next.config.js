@@ -3,4 +3,14 @@ const withNextra = require('nextra')({
   themeConfig: './theme.config.tsx',
 })
 
-module.exports = withNextra()
+module.exports = withNextra({
+  // Add static file configuration
+  async rewrites() {
+    return [
+      {
+        source: '/images/:path*',
+        destination: '/static/:path*',
+      },
+    ]
+  },
+})
