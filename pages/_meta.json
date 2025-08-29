@@ -1,13 +1,14 @@
 {
   "index": "Introduction",
   "get-started": "Get Started",
+  "deployment": "Deployment",
+  "operations": "Operations",
+  "resources": "Resources",
   "sales": "Sales",
   "about": {
     "title": "About",
     "type": "page"
   },
-
-  
   "contact": {
     "title": "Contact ↗",
     "type": "page",

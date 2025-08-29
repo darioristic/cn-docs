@@ -1,0 +1,11 @@
+{
+  "Introduction": "Introduction",
+  "cluster-management": "Cluster Management",
+  "monitoring--observability": "Monitoring & Observability",
+  "scaling--performance": "Scaling & Performance",
+  "security--compliance": "Security & Compliance",
+  "backup--recovery": "Backup & Recovery",
+  "troubleshooting": "Troubleshooting",
+  "maintenance": "Maintenance",
+  "upgrades--patches": "Upgrades & Patches"
+}

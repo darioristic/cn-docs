@@ -1,4 +1,10 @@
 {
-  "BareMetal": "Bare Metal",
-  "Virtualization": "Virtualization"
+  "index": "Overview",
+  "deployment-architecture": "Deployment Architecture",
+  "deployment-models": "Deployment Models",
+  "deployment-strategies": "Deployment Strategies",
+  "cluster-nodes--resources": "Cluster Resources",
+  "OpenStack": "OpenStack",
+  "high-availability--disaster-recovery": "HA/DR",
+  "best-practices": "Best Practices"
 }

@@ -1,0 +1,94 @@
+# Deployment
+
+Welcome to the **Deployment** section of our Cloud Native documentation. This guide covers cluster deployment models, strategies, infrastructure planning, and best practices for OpenShift and Kubernetes environments.
+
+---
+
+## Table of Contents
+
+1. [Deployment Architecture](#deployment-architecture)  
+2. [Deployment Models](#deployment-models)  
+3. [Deployment Strategies](#deployment-strategies)  
+4. [Cluster Nodes & Resources](#cluster-nodes--resources)  
+5. [Infrastructure & Network Planning](#infrastructure--network-planning)  
+6. [High Availability & Disaster Recovery](#high-availability--disaster-recovery)  
+7. [Best Practices](#best-practices)  
+
+---
+
+## Deployment Architecture
+
+The deployment architecture defines how your OpenShift/Kubernetes cluster is structured, including control plane, worker nodes, and infrastructure nodes.
+
+- **Control Plane:** Managed by Master nodes
+- **Application Workloads:** Managed by Worker nodes
+- **Infrastructure & Storage Services:** Managed by Infra nodes
+
+### Recommended Topology
+
+- **3 Master nodes** for high availability  
+- **3 Worker nodes** for application workloads  
+- **3 Infrastructure nodes** for storage and cluster services  
+
+> See the [Resources](./resources) page for detailed node specifications.
+
+---
+
+## Deployment Models
+
+You can choose deployment models based on your business and technical requirements:
+
+- **On-Premises:** Full control and security over physical infrastructure.  
+- **Cloud:** Managed deployment with automatic updates and scalability.  
+- **Hybrid:** Combination of on-premises and cloud resources.  
+- **Edge:** Distributed deployment for low-latency or remote environments.  
+
+---
+
+## Deployment Strategies
+
+Effective deployment strategies reduce downtime and improve reliability:
+
+- **Blue-Green Deployment:** Deploy new versions in parallel, switch traffic seamlessly.  
+- **Rolling Updates:** Gradual updates across nodes with minimal service disruption.  
+- **Canary Releases:** Deploy to a small subset of users first to test new features.  
+- **Automated CI/CD Pipelines:** Integrate GitOps tools for repeatable, version-controlled deployments.  
+
+---
+
+## Cluster Nodes & Resources
+
+Refer to the [Resources](./resources) page for detailed node specifications. Typical setup includes:
+
+- Master nodes for control plane  
+- Worker nodes for applications  
+- Infra/Storage nodes for persistent storage and cluster services  
+
+---
+
+## Infrastructure & Network Planning
+
+- **Networking:** Separate management, application, and storage networks  
+- **Load Balancing:** Use HAProxy or OpenShift Router for high availability  
+- **Storage:** Deploy OpenShift Data Foundation or alternative persistent storage solutions  
+
+---
+
+## High Availability & Disaster Recovery
+
+- Deploy **odd number of Master nodes** for quorum  
+- Enable **etcd backups** and offsite replication  
+- Configure **multi-zone or multi-region clusters** for critical applications  
+
+---
+
+## Best Practices
+
+- Use **infrastructure-as-code (IaC)** for repeatable deployments  
+- Monitor cluster health using Prometheus and Grafana  
+- Implement **role-based access control (RBAC)** for security  
+- Automate **backup and recovery procedures**  
+
+---
+
+> **Tip:** Always test deployments in a **staging environment** before production rollout.

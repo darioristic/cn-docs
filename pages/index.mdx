@@ -1,76 +1,76 @@
 ---
-description:
-  Nextra is a framework built on top of Next.js that enables the creation of
-  content-focused websites. It combines the robust features of Next.js with
-  enhanced capabilities for crafting Markdown-based content.
+description: Cloud Native Internal Documentation - Comprehensive guide for cloud-native solutions, deployment, operations, and resources
 ---
 
-import { Cards, Image } from 'nextra/components'
-import { cloneElement } from 'react'
-
-export default function MdxLayout(props) {
-  return cloneElement(props.children, {
-    components: {
-      img: Image
-    }
-  })
-}
-
-# Introduction
+# Cloud Native Internal Documentation
 
 Welcome to the **Cloud Native Internal Documentation**.  
-This section is designed to provide a structured introduction to the way we work, 
-the technologies we use, and the practices we follow across teams. 
-It serves as a foundation for onboarding new colleagues, aligning existing teams, 
-and ensuring consistent quality in everything we deliver.  
+This documentation is the central hub for everything related to how we deliver, operate, and grow cloud-native solutions.  
 
+It is designed to help new team members get up to speed quickly and to serve as a reliable reference point for everyone in the company.  
 
-## Quick start
+---
 
-To start using Nextra, you need to select a theme first:
+## Purpose of This Documentation
 
-<Cards num={2}>
-  <Cards.Card arrow title="Sales Documentation" href="/sales">
-    <>![Documentation theme screenshot](/assets/docs-theme.png)</>
-  </Cards.Card>
-  <Cards.Card arrow title="Engeniring Documentation" href="/docs/blog-theme/start">
-    <>![Blog theme screenshot](/assets/blog-theme.png)</>
-  </Cards.Card>
-</Cards>
+The **Cloud Native Documentation** provides:  
 
-If you want to use Nextra without using these built-in themes, you can follow
-the [Custom Theme](/docs/custom-theme) docs.
+- **Orientation** – a clear entry point for understanding our approach.  
+- **Consistency** – shared practices and messaging across teams.  
+- **Enablement** – resources, checklists, and playbooks to make daily work easier.  
+- **Collaboration** – a single source of truth for both Sales and Engineering.  
 
-## FAQ
+This documentation is a **living resource** – it grows and evolves with our projects, clients, and technologies.  
 
-The Nextra FAQ is a collection of useful questions and answers about the
-project. If you have a question that isn't answered here, please
-[open a discussion](https://github.com/shuding/nextra/discussions).
+---
 
-<details>
-  {/* prettier-ignore */}
-  <summary>Can I use Nextra with Next.js `pages` router?</summary>
-Nextra 4 only works with the `app` router. Only Nextra 1/2/3 supports the
-`pages` router.
+## Who Should Use This
 
-</details>
+- **Sales & Business Development** – to understand our value narratives, positioning, and how to engage with clients.  
+- **Engineering Teams** – to follow standardized processes for platform design, deployment, and operations.  
+- **New Team Members** – to onboard faster and learn our best practices.  
+- **Leadership** – to align strategy, sales, and delivery.  
 
-<details>
-  <summary>Can I use X with Nextra?</summary>
-The answer is "yes" for most things. Since Nextra is just a Next.js plugin, almost all the things
-that can be done with React can be done with Nextra. Here are some examples and guides:
+---
 
-- [Use Tailwind CSS](/docs/guide/tailwind-css)
-- [Use custom CSS and Sass](/docs/guide/custom-css)
-- [Use custom fonts](https://nextjs.org/docs/basic-features/font-optimization)
+## What You Will Find Here
 
-</details>
+The documentation is organized into five main sections:  
 
-<details>
-  {/* prettier-ignore */}
-  <summary>How can I add a live coding component in Nextra?</summary>
-There are libraries like [Sandpack](https://sandpack.codesandbox.io) and
-[react-live](https://github.com/FormidableLabs/react-live) that can help you
-add live coding components to your MDX.
+### 1. Get Started  
+Guidance for getting started with cloud-native solutions, including platform principles, deployment standards, and operational practices.
 
-</details>
+### 2. Deployment  
+Step-by-step deployment standards, strategies, and tools for delivering secure and scalable platforms.
+
+### 3. Operations  
+Day-2 operations practices covering monitoring, security, observability, and incident management.
+
+### 4. Resources  
+Centralized templates, checklists, training materials, and references to external knowledge sources.
+
+### 5. Sales  
+Guidance for presenting our services, including messaging frameworks, playbooks, and sales resources.
+
+---
+
+## How to Use This Documentation
+
+1. **Start with this page** to get the big picture.  
+2. **Explore each section** depending on your role: Sales, Deployment, Operations, Resources.  
+3. **Use Resources** whenever you need collateral, templates, or curated references.  
+4. **Contribute** – this is a shared resource. If something is missing or outdated, improve it.  
+
+---
+
+## Quick Navigation
+
+- Go to **[Get Started](./get-started)** if you are new to cloud-native solutions.  
+- Explore **[Deployment](./deployment)** for setup and integration guidance.  
+- Visit **[Operations](./operations)** for monitoring and support standards.  
+- Check **[Resources](./resources)** for templates, checklists, and external references.  
+- Go to **[Sales](./sales)** if you need to engage clients.  
+
+---
+
+> ⚡ **Note:** This documentation reflects our way of working as a **cloud-native company**. It is continuously evolving — check back often and contribute improvements.

@@ -1,0 +1,92 @@
+# Operations
+
+Welcome to the **Operations** section of our Cloud Native documentation. This guide covers daily cluster management, monitoring, scaling, security, and troubleshooting for OpenShift and Kubernetes environments.
+
+---
+
+## Table of Contents
+
+1. [Cluster Management](#cluster-management)  
+2. [Monitoring & Observability](#monitoring--observability)  
+3. [Scaling & Performance](#scaling--performance)  
+4. [Security & Compliance](#security--compliance)  
+5. [Backup & Disaster Recovery](#backup--disaster-recovery)  
+6. [Troubleshooting & Maintenance](#troubleshooting--maintenance)  
+7. [Best Practices](#best-practices)  
+
+---
+
+## Cluster Management
+
+Effective operations begin with solid cluster management practices:
+
+- **Node Management:** Monitor node health, manage upgrades, and maintain consistent configuration.  
+- **Etcd Management:** Ensure etcd backups and cluster quorum are maintained.  
+- **OpenShift Operators:** Use operators for automated management of core services and applications.  
+
+---
+
+## Monitoring & Observability
+
+To maintain reliable operations, implement monitoring and observability:
+
+- **Metrics Collection:** Prometheus for cluster metrics, custom alerts for workloads.  
+- **Logging:** Centralized logging with Elasticsearch, Fluentd, and Kibana (EFK) stack.  
+- **Tracing:** OpenTelemetry for distributed tracing of microservices.  
+- **Dashboards:** Grafana dashboards for performance and health visibility.  
+
+---
+
+## Scaling & Performance
+
+Ensure your applications and clusters can handle growth:
+
+- **Horizontal Pod Autoscaling (HPA):** Automatic scaling based on CPU, memory, or custom metrics.  
+- **Vertical Scaling:** Adjust node resources as workloads increase.  
+- **Cluster Autoscaler:** Automatically add or remove nodes based on demand.  
+- **Load Balancing:** Ensure proper traffic distribution for high availability.  
+
+---
+
+## Security & Compliance
+
+Maintain secure operations with best practices:
+
+- **RBAC:** Role-Based Access Control for limiting access.  
+- **Network Policies:** Define traffic rules between pods and services.  
+- **Image Security:** Scan container images before deployment.  
+- **Secrets Management:** Store sensitive data securely using Kubernetes Secrets or Vault.  
+
+---
+
+## Backup & Disaster Recovery
+
+Protect critical workloads and ensure business continuity:
+
+- **Etcd Backups:** Regular snapshots for recovery.  
+- **Persistent Storage Backups:** Use OpenShift Data Foundation or alternative solutions.  
+- **Multi-Region Deployment:** Ensure DR capability across data centers or cloud regions.  
+- **Recovery Testing:** Regularly validate backup and restore processes.  
+
+---
+
+## Troubleshooting & Maintenance
+
+Keep the cluster healthy and resolve issues efficiently:
+
+- **Common Issues:** Node failures, pod crashes, network misconfigurations.  
+- **Diagnostic Tools:** oc CLI, kubectl, logs, metrics, and monitoring dashboards.  
+- **Maintenance Windows:** Plan upgrades and patching with minimal downtime.  
+
+---
+
+## Best Practices
+
+- Automate routine operations using **Ansible or OpenShift Operators**  
+- Maintain **documentation and runbooks** for all procedures  
+- Implement **continuous monitoring and alerting** for proactive issue detection  
+- Regularly **audit cluster security and compliance**  
+
+---
+
+> **Tip:** Combine observability tools and automated alerts to reduce mean-time-to-recovery (MTTR) during incidents.

@@ -1,0 +1,375 @@
+---
+description: Automation Scripts and Tools for Cloud Native Operations
+---
+
+# Scripts & Automation
+
+Streamline your Cloud Native operations with our collection of automation scripts, deployment tools, and workflow automation solutions. These resources help reduce manual work and ensure consistent, repeatable processes.
+
+## Deployment Automation Scripts
+
+### Cluster Deployment Scripts
+- **OpenShift Installation**
+  ```bash
+  #!/bin/bash
+  # Automated OpenShift 4.x installation
+  # Usage: ./install-openshift.sh <cluster-name> <domain>
+  
+  CLUSTER_NAME=$1
+  DOMAIN=$2
+  
+  # Generate ignition files
+  openshift-install create ignition-configs --dir=./install-config
+  
+  # Start bootstrap node
+  ./start-bootstrap.sh $CLUSTER_NAME $DOMAIN
+  
+  # Wait for bootstrap completion
+  ./wait-for-bootstrap.sh
+  
+  # Complete installation
+  openshift-install --dir=./install-config wait-for bootstrap-complete
+  ```
+
+### Application Deployment Scripts
+- **Helm-based Deployment**
+  ```bash
+  #!/bin/bash
+  # Automated application deployment with Helm
+  # Usage: ./deploy-app.sh <app-name> <environment>
+  
+  APP_NAME=$1
+  ENVIRONMENT=$2
+  
+  # Add Helm repositories
+  helm repo add bitnami https://charts.bitnami.com/bitnami
+  helm repo update
+  
+  # Deploy application
+  helm install $APP_NAME bitnami/$APP_NAME \
+    --namespace $ENVIRONMENT \
+    --create-namespace \
+    --values values-$ENVIRONMENT.yaml
+  ```
+
+## Configuration Management Scripts
+
+### Environment Setup Scripts
+- **Namespace and RBAC Setup**
+  ```bash
+  #!/bin/bash
+  # Setup project namespace and permissions
+  # Usage: ./setup-project.sh <project-name> <team-name>
+  
+  PROJECT_NAME=$1
+  TEAM_NAME=$2
+  
+  # Create project
+  oc new-project $PROJECT_NAME
+  
+  # Create service accounts
+  oc create serviceaccount $TEAM_NAME-deployer
+  oc create serviceaccount $TEAM_NAME-viewer
+  
+  # Assign roles
+  oc adm policy add-role-to-user admin $TEAM_NAME-deployer -n $PROJECT_NAME
+  oc adm policy add-role-to-user view $TEAM_NAME-viewer -n $PROJECT_NAME
+  ```
+
+### Configuration Validation Scripts
+- **YAML Validation**
+  ```bash
+  #!/bin/bash
+  # Validate Kubernetes manifests
+  # Usage: ./validate-manifests.sh <directory>
+  
+  MANIFEST_DIR=$1
+  
+  for file in $MANIFEST_DIR/*.yaml; do
+    echo "Validating $file..."
+    kubectl apply --dry-run=client -f $file
+    if [ $? -eq 0 ]; then
+      echo "✅ $file is valid"
+    else
+      echo "❌ $file has errors"
+    fi
+  done
+  ```
+
+## Monitoring & Alerting Scripts
+
+### Health Check Scripts
+- **Cluster Health Monitoring**
+  ```bash
+  #!/bin/bash
+  # Monitor cluster health and send alerts
+  # Usage: ./cluster-health-check.sh
+  
+  # Check node status
+  NODE_STATUS=$(oc get nodes --no-headers | grep -v "Ready")
+  if [ ! -z "$NODE_STATUS" ]; then
+    echo "ALERT: Unhealthy nodes detected"
+    echo "$NODE_STATUS"
+    # Send notification
+    ./send-alert.sh "Cluster Health Alert" "$NODE_STATUS"
+  fi
+  
+  # Check pod status
+  FAILED_PODS=$(oc get pods --all-namespaces --no-headers | grep -E "(CrashLoopBackOff|Error|Failed)")
+  if [ ! -z "$FAILED_PODS" ]; then
+    echo "ALERT: Failed pods detected"
+    echo "$FAILED_PODS"
+    ./send-alert.sh "Pod Failure Alert" "$FAILED_PODS"
+  fi
+  ```
+
+### Metrics Collection Scripts
+- **Resource Usage Monitoring**
+  ```bash
+  #!/bin/bash
+  # Collect resource usage metrics
+  # Usage: ./collect-metrics.sh <output-file>
+  
+  OUTPUT_FILE=$1
+  
+  # Get cluster metrics
+  echo "=== Cluster Metrics $(date) ===" > $OUTPUT_FILE
+  
+  # Node resource usage
+  echo "Node Resource Usage:" >> $OUTPUT_FILE
+  oc adm top nodes >> $OUTPUT_FILE
+  
+  # Pod resource usage
+  echo "Pod Resource Usage:" >> $OUTPUT_FILE
+  oc adm top pods --all-namespaces >> $OUTPUT_FILE
+  
+  # Storage usage
+  echo "Storage Usage:" >> $OUTPUT_FILE
+  oc get pvc --all-namespaces >> $OUTPUT_FILE
+  ```
+
+## Security & Compliance Scripts
+
+### Security Scanning Scripts
+- **Vulnerability Assessment**
+  ```bash
+  #!/bin/bash
+  # Run security scans on container images
+  # Usage: ./security-scan.sh <image-name>
+  
+  IMAGE_NAME=$1
+  
+  # Run Trivy vulnerability scan
+  trivy image $IMAGE_NAME --format json --output scan-results.json
+  
+  # Check for high/critical vulnerabilities
+  HIGH_VULNS=$(jq '.Results[].Vulnerabilities[] | select(.Severity == "HIGH" or .Severity == "CRITICAL")' scan-results.json)
+  
+  if [ ! -z "$HIGH_VULNS" ]; then
+    echo "ALERT: High/Critical vulnerabilities found in $IMAGE_NAME"
+    echo "$HIGH_VULNS"
+    ./send-security-alert.sh "$IMAGE_NAME" "$HIGH_VULNS"
+  fi
+  ```
+
+### Compliance Checking Scripts
+- **RBAC Audit Script**
+  ```bash
+  #!/bin/bash
+  # Audit RBAC permissions
+  # Usage: ./rbac-audit.sh <output-file>
+  
+  OUTPUT_FILE=$1
+  
+  echo "=== RBAC Audit Report $(date) ===" > $OUTPUT_FILE
+  
+  # Get all cluster roles
+  echo "Cluster Roles:" >> $OUTPUT_FILE
+  oc get clusterroles >> $OUTPUT_FILE
+  
+  # Get all cluster role bindings
+  echo "Cluster Role Bindings:" >> $OUTPUT_FILE
+  oc get clusterrolebindings >> $OUTPUT_FILE
+  
+  # Check for overly permissive roles
+  echo "Checking for overly permissive roles..." >> $OUTPUT_FILE
+  oc get clusterroles -o yaml | grep -A 5 "cluster-admin" >> $OUTPUT_FILE
+  ```
+
+## Backup & Recovery Scripts
+
+### Data Backup Scripts
+- **etcd Backup Script**
+  ```bash
+  #!/bin/bash
+  # Backup etcd data
+  # Usage: ./backup-etcd.sh <backup-dir>
+  
+  BACKUP_DIR=$1
+  TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+  
+  # Create backup directory
+  mkdir -p $BACKUP_DIR
+  
+  # Get etcd pod name
+  ETCD_POD=$(oc get pods -n openshift-etcd -l k8s-app=etcd -o name | head -1)
+  
+  # Create backup
+  oc exec $ETCD_POD -n openshift-etcd -- etcdctl snapshot save /var/lib/etcd-backup/snapshot.db
+  
+  # Copy backup to local directory
+  oc cp openshift-etcd/$ETCD_POD:/var/lib/etcd-backup/snapshot.db $BACKUP_DIR/etcd-backup-$TIMESTAMP.db
+  
+  echo "etcd backup completed: $BACKUP_DIR/etcd-backup-$TIMESTAMP.db"
+  ```
+
+### Application Backup Scripts
+- **Persistent Volume Backup**
+  ```bash
+  #!/bin/bash
+  # Backup persistent volumes
+  # Usage: ./backup-pv.sh <namespace> <pvc-name>
+  
+  NAMESPACE=$1
+  PVC_NAME=$2
+  
+  # Get PVC details
+  PVC=$(oc get pvc $PVC_NAME -n $NAMESPACE -o yaml)
+  
+  # Create backup PVC
+  BACKUP_PVC_NAME="${PVC_NAME}-backup-$(date +%Y%m%d)"
+  echo "$PVC" | sed "s/name: $PVC_NAME/name: $BACKUP_PVC_NAME/" | oc apply -f -
+  
+  # Scale down deployment
+  oc scale deployment --replicas=0 -n $NAMESPACE -l app=$PVC_NAME
+  
+  # Wait for pods to terminate
+  oc wait --for=delete pod -l app=$PVC_NAME -n $NAMESPACE --timeout=300s
+  
+  # Create backup
+  oc exec $PVC_NAME -n $NAMESPACE -- tar czf /backup/data.tar.gz /data
+  
+  # Scale up deployment
+  oc scale deployment --replicas=1 -n $NAMESPACE -l app=$PVC_NAME
+  ```
+
+## CI/CD Pipeline Scripts
+
+### GitOps Deployment Scripts
+- **ArgoCD Application Sync**
+  ```bash
+  #!/bin/bash
+  # Sync ArgoCD applications
+  # Usage: ./argocd-sync.sh <app-name>
+  
+  APP_NAME=$1
+  
+  # Sync application
+  argocd app sync $APP_NAME
+  
+  # Wait for sync completion
+  argocd app wait $APP_NAME --health --timeout 300
+  
+  # Get sync status
+  STATUS=$(argocd app get $APP_NAME -o json | jq -r '.status.sync.status')
+  
+  if [ "$STATUS" = "Synced" ]; then
+    echo "✅ $APP_NAME synced successfully"
+  else
+    echo "❌ $APP_NAME sync failed"
+    exit 1
+  fi
+  ```
+
+### Jenkins Pipeline Scripts
+- **Multi-stage Build Pipeline**
+  ```groovy
+  // Jenkinsfile for OpenShift deployment
+  pipeline {
+      agent any
+      
+      stages {
+          stage('Build') {
+              steps {
+                  script {
+                      // Build container image
+                      sh 'podman build -t myapp:latest .'
+                  }
+              }
+          }
+          
+          stage('Test') {
+              steps {
+                  script {
+                      // Run tests
+                      sh 'podman run myapp:latest npm test'
+                  }
+              }
+          }
+          
+          stage('Deploy') {
+              steps {
+                  script {
+                      // Deploy to OpenShift
+                      sh 'oc apply -f k8s/'
+                      sh 'oc rollout status deployment/myapp'
+                  }
+              }
+          }
+      }
+  }
+  ```
+
+## Utility Scripts
+
+### Log Analysis Scripts
+- **Log Aggregation Script**
+  ```bash
+  #!/bin/bash
+  # Aggregate logs from multiple pods
+  # Usage: ./aggregate-logs.sh <app-label> <output-file>
+  
+  APP_LABEL=$1
+  OUTPUT_FILE=$2
+  
+  echo "=== Log Aggregation $(date) ===" > $OUTPUT_FILE
+  
+  # Get all pods with the label
+  PODS=$(oc get pods -l app=$APP_LABEL -o name)
+  
+  for pod in $PODS; do
+      echo "=== Logs from $pod ===" >> $OUTPUT_FILE
+      oc logs $pod >> $OUTPUT_FILE
+      echo "" >> $OUTPUT_FILE
+  done
+  
+  echo "Logs aggregated to $OUTPUT_FILE"
+  ```
+
+### Cleanup Scripts
+- **Resource Cleanup Script**
+  ```bash
+  #!/bin/bash
+  # Clean up unused resources
+  # Usage: ./cleanup-resources.sh <namespace>
+  
+  NAMESPACE=$1
+  
+  # Delete completed jobs
+  oc delete jobs --field-selector status.successful=1 -n $NAMESPACE
+  
+  # Delete failed pods
+  oc delete pods --field-selector status.phase=Failed -n $NAMESPACE
+  
+  # Delete old replicasets
+  oc delete rs --field-selector status.replicas=0 -n $NAMESPACE
+  
+  # Clean up old images
+  oc adm prune images --keep-tag-revisions=3 --keep-younger-than=60m
+  
+  echo "Cleanup completed for namespace $NAMESPACE"
+  ```
+
+---
+
+**Need help customizing these scripts for your environment? Contact our automation team for assistance.**

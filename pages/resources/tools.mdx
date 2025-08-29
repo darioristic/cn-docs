@@ -1,0 +1,217 @@
+---
+description: Essential Tools and Utilities for Cloud Native Operations
+---
+
+# Tools & Utilities
+
+Discover essential tools and utilities for managing Cloud Native environments, monitoring performance, and troubleshooting issues. Our curated collection includes both official tools and community-contributed utilities.
+
+## Command Line Tools
+
+### OpenShift CLI (oc)
+- **Installation**: Download from Red Hat Customer Portal
+- **Key Commands**:
+  ```bash
+  oc login                    # Authenticate to cluster
+  oc get pods                # List pods
+  oc describe pod <name>     # Detailed pod information
+  oc logs <pod-name>         # View pod logs
+  oc exec -it <pod> -- bash # Execute commands in pod
+  oc port-forward <svc> 8080:80 # Port forwarding
+  ```
+
+### Kubernetes CLI (kubectl)
+- **Installation**: Multiple package managers available
+- **Essential Commands**:
+  ```bash
+  kubectl get all            # List all resources
+  kubectl apply -f file.yaml # Apply configuration
+  kubectl delete -f file.yaml # Delete resources
+  kubectl scale deployment <name> --replicas=3 # Scale deployment
+  kubectl rollout status deployment/<name> # Check rollout status
+  ```
+
+### Helm Package Manager
+- **Installation**: `curl https://get.helm.sh/helm-v3.x.x-linux-amd64.tar.gz | tar xz`
+- **Common Operations**:
+  ```bash
+  helm repo add bitnami https://charts.bitnami.com/bitnami
+  helm install my-app bitnami/nginx
+  helm upgrade my-app bitnami/nginx
+  helm uninstall my-app
+  helm list
+  ```
+
+## Monitoring & Observability Tools
+
+### Prometheus
+- **Purpose**: Metrics collection and storage
+- **Key Features**:
+  - Time-series database
+  - PromQL query language
+  - Alert manager integration
+  - Service discovery
+- **Installation**: Operator-based deployment recommended
+
+### Grafana
+- **Purpose**: Metrics visualization and dashboards
+- **Capabilities**:
+  - Custom dashboard creation
+  - Multiple data source support
+  - Alerting and notifications
+  - Team collaboration features
+- **Access**: Web-based interface
+
+### OpenShift Monitoring Stack
+- **Built-in Components**:
+  - Prometheus
+  - Grafana
+  - Alert Manager
+  - Node Exporter
+- **Configuration**: Via OpenShift Console or CLI
+
+## Diagnostic & Troubleshooting Tools
+
+### Network Diagnostics
+- **tcpdump**: Packet capture and analysis
+- **netstat**: Network statistics
+- **nslookup**: DNS resolution testing
+- **curl/wget**: HTTP request testing
+
+### Container Debugging
+- **oc debug**: Debug running containers
+- **oc rsh**: Remote shell access
+- **oc cp**: Copy files to/from containers
+- **oc logs**: Log retrieval and filtering
+
+### Performance Analysis
+- **top/htop**: Process monitoring
+- **iostat**: I/O statistics
+- **free**: Memory usage
+- **df**: Disk space usage
+
+## Configuration Management Tools
+
+### YAML/JSON Validators
+- **yamllint**: YAML syntax validation
+- **jsonlint**: JSON syntax validation
+- **kubeval**: Kubernetes manifest validation
+- **conftest**: Policy-based validation
+
+### Template Engines
+- **Helm Templates**: Kubernetes manifest templating
+- **Jinja2**: Python-based templating
+- **Go Templates**: Go-based templating
+- **Mustache**: Logic-less templating
+
+### Configuration Generators
+- **kustomize**: Kubernetes native configuration management
+- **helmfile**: Declarative Helm deployments
+- **argocd**: GitOps continuous delivery
+- **flux**: GitOps toolkit
+
+## Deployment & CI/CD Tools
+
+### GitOps Tools
+- **ArgoCD**: Declarative GitOps continuous delivery
+- **Flux**: GitOps toolkit for Kubernetes
+- **Jenkins X**: Modern CI/CD for Kubernetes
+- **Tekton**: Cloud-native CI/CD building blocks
+
+### Infrastructure as Code
+- **Terraform**: Infrastructure provisioning
+- **Ansible**: Configuration automation
+- **Pulumi**: Modern infrastructure as code
+- **Crossplane**: Cloud-native control planes
+
+### Container Build Tools
+- **Buildah**: Container image building
+- **Podman**: Container runtime
+- **Skopeo**: Container image operations
+- **Kaniko**: Container image building in Kubernetes
+
+## Security & Compliance Tools
+
+### Security Scanners
+- **Trivy**: Vulnerability scanner
+- **Clair**: Container vulnerability analysis
+- **Falco**: Runtime security monitoring
+- **OPA**: Policy engine
+
+### Compliance Tools
+- **kube-bench**: CIS Kubernetes benchmark
+- **kube-hunter**: Security assessment
+- **kubesec**: Security risk analysis
+- **checkov**: Infrastructure security scanning
+
+### Access Management
+- **Vault**: Secrets management
+- **Keycloak**: Identity and access management
+- **LDAP tools**: Directory service management
+- **RBAC tools**: Role-based access control
+
+## Web-based Tools
+
+### OpenShift Console
+- **Features**: Web-based cluster management
+- **Capabilities**: Resource management, monitoring, troubleshooting
+- **Access**: Via browser at cluster URL
+
+### Kubernetes Dashboard
+- **Purpose**: Web-based Kubernetes management
+- **Features**: Resource overview, deployment management
+- **Installation**: Via kubectl or Helm
+
+### Grafana Dashboards
+- **Custom Dashboards**: Application-specific monitoring
+- **Shared Dashboards**: Team collaboration
+- **Alerting**: Notification management
+
+## Development Tools
+
+### IDE Extensions
+- **VS Code Extensions**:
+  - Kubernetes
+  - OpenShift
+  - YAML
+  - Docker
+- **IntelliJ Plugins**: Kubernetes support
+- **Vim/Emacs**: Kubernetes configurations
+
+### Local Development
+- **Minikube**: Local Kubernetes cluster
+- **CodeReady Workspaces**: Cloud-native development
+- **Skaffold**: Local development workflow
+- **Tilt**: Microservice development
+
+## Package Management
+
+### Helm Repositories
+- **Official Charts**: Kubernetes official charts
+- **Bitnami**: Production-ready charts
+- **Custom Repositories**: Internal chart repositories
+- **Chart Museum**: Chart hosting solution
+
+### Operator Hub
+- **Red Hat Operators**: Certified operators
+- **Community Operators**: Community-contributed
+- **Custom Operators**: Internal development
+- **Operator Lifecycle Manager**: Operator management
+
+## Troubleshooting Utilities
+
+### Log Analysis
+- **grep/awk/sed**: Text processing
+- **jq**: JSON processing
+- **logcli**: Log querying
+- **kail**: Kubernetes log tailing
+
+### Resource Analysis
+- **oc adm top**: Resource usage
+- **kubectl top**: Resource metrics
+- **oc adm node-logs**: Node log access
+- **oc adm inspect**: Cluster inspection
+
+---
+
+**Need help with a specific tool? Check our documentation or reach out to our support team for assistance.**
