@@ -1,18 +1,49 @@
 {
   "index": "Introduction",
+  "---main": {
+    "type": "separator",
+    "title": "Documentation"
+  },
   "get-started": "Get Started",
   "deployment": "Deployment",
   "operations": "Operations",
   "resources": "Resources",
+  "---projects": {
+    "type": "separator",
+    "title": "Projects & Sales"
+  },
+  "projects": "Project EDU/POC",
   "sales": "Sales",
+  "---info": {
+    "type": "separator", 
+    "title": "Information"
+  },
   "about": {
     "title": "About",
     "type": "page"
   },
+  "---links": {
+    "type": "separator",
+    "title": "External Links"
+  },
   "contact": {
     "title": "Contact ↗",
-    "type": "page",
     "href": "https://cloud-native.rs/contact",
+    "newWindow": true
+  },
+  "github": {
+    "title": "GitHub ↗",
+    "href": "https://github.com/cloud-native-serbia",
+    "newWindow": true
+  },
+  "kubernetes": {
+    "title": "Kubernetes Docs ↗",
+    "href": "https://kubernetes.io/docs/",
+    "newWindow": true
+  },
+  "openshift": {
+    "title": "OpenShift Docs ↗",
+    "href": "https://docs.openshift.com/",
     "newWindow": true
   }
 }
