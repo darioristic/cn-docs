@@ -1,15 +1,23 @@
 {
   "index": "Introduction",
-  "another": "Another Page",
-  "advanced": "Advanced (A Folder)",
+  "get-started": {
+    "title": "Get Started",
+    "type": "page"
+  },
+  "sales": {
+    "title": "Sales",
+    "type": "page"
+  },
   "about": {
     "title": "About",
     "type": "page"
   },
+  "another": "Another Page",
+  "advanced": "Advanced (A Folder)",
   "contact": {
     "title": "Contact ↗",
     "type": "page",
-    "href": "https://twitter.com/shuding_",
+    "href": "https://cloud-native.rs/contact",
     "newWindow": true
   }
 }
