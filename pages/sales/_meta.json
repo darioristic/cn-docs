@@ -1,4 +1,6 @@
 {
-  "open-shift-general": "General",
-  "poc-edu-cluster": "EDU/POC"
+  "index": "Overview",
+  "services": "Services",
+  "business": "Business",
+  "pricing": "Pricing & Models"
 }

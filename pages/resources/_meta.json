@@ -1,11 +1,7 @@
 {
-  "Introduction": "Introduction",
+  "index": "Overview",
   "documentation": "Documentation",
   "tools": "Tools & Utilities",
   "scripts": "Scripts & Automation",
-  "templates": "Templates & Examples",
-  "cheat-sheets": "Cheat Sheets",
-  "video-tutorials": "Video Tutorials",
-  "community": "Community Resources",
-  "support": "Support & Help"
+  "best-practices": "Best Practices"
 }

@@ -1,5 +1,4 @@
-import React from 'react'
-import { DocsThemeConfig } from 'nextra-theme-docs'
+import type { DocsThemeConfig } from 'nextra-theme-docs'
 
 const config: DocsThemeConfig = {
   logo: (
@@ -49,11 +48,86 @@ const config: DocsThemeConfig = {
           fill: currentColor;
           stroke: currentColor;
         }
+        
+        /* Default collapsed state for navigation items except Get Started */
+        .nextra-sidebar-container li[data-menu-item]:not([data-menu-item*="get-started"]) > div[style*="height"] {
+          height: 0 !important;
+        }
+        
+        .nextra-sidebar-container li[data-menu-item]:not([data-menu-item*="get-started"]) > div > div {
+          opacity: 0 !important;
+        }
+        
+        /* Keep Get Started expanded */
+        .nextra-sidebar-container li[data-menu-item*="get-started"] > div[style*="height"] {
+          height: auto !important;
+        }
+        
+        .nextra-sidebar-container li[data-menu-item*="get-started"] > div > div {
+          opacity: 1 !important;
+        }
       `}</style>
+      <script dangerouslySetInnerHTML={{
+        __html: `
+          // Expand Get Started section by default
+          document.addEventListener('DOMContentLoaded', function() {
+            function expandGetStarted() {
+              // Find the Get Started navigation item
+              const getStartedItem = Array.from(document.querySelectorAll('a[href="/get-started"]')).find(a => 
+                a.textContent.includes('Get Started')
+              );
+              
+              if (getStartedItem && getStartedItem.parentElement) {
+                const parentLi = getStartedItem.parentElement;
+                const collapseDiv = parentLi.querySelector('div[style*="height"]');
+                const opacityDiv = parentLi.querySelector('div > div');
+                
+                if (collapseDiv && opacityDiv) {
+                  // Force expand
+                  collapseDiv.style.height = 'auto';
+                  opacityDiv.style.opacity = '1';
+                  
+                  // Add expanded class if Nextra uses it
+                  parentLi.classList.add('expanded');
+                }
+              }
+              
+              // Collapse other sections
+              const menuItems = ['deployment', 'operations', 'resources', 'projects', 'sales'];
+              menuItems.forEach(item => {
+                const itemLink = document.querySelector('a[href="/' + item + '"]');
+                if (itemLink && itemLink.parentElement) {
+                  const parentLi = itemLink.parentElement;
+                  const collapseDiv = parentLi.querySelector('div[style*="height"]');
+                  const opacityDiv = parentLi.querySelector('div > div');
+                  
+                  if (collapseDiv && opacityDiv) {
+                    collapseDiv.style.height = '0px';
+                    opacityDiv.style.opacity = '0';
+                    parentLi.classList.remove('expanded');
+                  }
+                }
+              });
+            }
+            
+            // Try to expand immediately
+            expandGetStarted();
+            
+            // Also try after a short delay in case of async loading
+            setTimeout(expandGetStarted, 100);
+            setTimeout(expandGetStarted, 500);
+          });
+        `
+      }} />
     </>
   ),
   primaryHue: 210,
   primarySaturation: 100,
+  sidebar: {
+    defaultMenuCollapseLevel: 1,
+    autoCollapse: false,
+    toggleButton: true,
+  },
 }
 
 export default config

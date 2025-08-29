@@ -1,6 +1,7 @@
 {
-  "overview": "Overview",
-  "platform": "Platform",
+  "index": "Overview",
+  "overview": "Overview", 
+  "platform": "Platform", 
   "deployment": "Deployment",
   "operations": "Operations",
   "sales": "Sales",
